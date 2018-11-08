@@ -1,0 +1,116 @@
+<div class="row">
+  <div class="col s12">
+    <form (ngSubmit)="houseModel.processTextData()">
+      <div class="card">
+        <div class="card-content">
+
+
+          <div class="row" style="margin-bottom: 0;">
+            <div class="col s12">
+              <select materialize="material_select" style="margin:1px;" class="form-control" name="type"
+                      [(ngModel)]="houseModel.house.typeOfSale" type="text">
+                <option value="none" disabled selected>Selling Status</option>
+                <option value="sale">For Sale</option>
+                <option value="lease">For Rent</option>
+              </select>
+
+            </div>
+          </div>
+
+          <div class="row" style="margin-bottom:0;">
+            <div class="input-field col s12 ">
+              <input type="text" id="title" class="form-control" style="margin-bottom:1px;" name="title" type="text"
+                     [(ngModel)]="houseModel.house.title" required placeholder="">
+              <label for="title" class="active">Title</label>
+            </div>
+          </div>
+
+          <div class="row" style="margin-bottom:0;">
+            <div class="input-field col s12 ">
+              <input type="text" id="price" class="form-control input-price" style="margin-bottom:1px;" name="price"
+                     [(ngModel)]="houseModel.house.price" type="text" required placeholder="">
+
+              <label *ngIf="houseModel.house.type !== 'lease'" for="price">Asking Price</label>
+              <label *ngIf="houseModel.house.type === 'lease'" for="price">Price Per Month</label>
+
+            </div>
+          </div>
+
+          <div class="row" style="margin-bottom:0;">
+            <div class="input-field col s12 ">
+              <input type="text" id="sqft" class="form-control input-sqft" style="margin-bottom:1px;" name="sqft"
+                     [(ngModel)]="houseModel.house.sqft" type="text" placeholder="optional">
+              <label for="sqft">Square Footage</label>
+            </div>
+          </div>
+
+          <div class="row" style="margin-bottom:0;">
+            <div class="input-field col s12 ">
+              <input type="text" id="acreage" class="form-control input-acreage" style="margin-bottom:1px;" type="text"
+                     name="acreage"
+                     [(ngModel)]="houseModel.house.acreage" placeholder="optional">
+              <label for="acreage">Acreage</label>
+            </div>
+          </div>
+
+          <div class="row" style="margin-bottom:0;">
+            <div class="input-field col s12 ">
+              <textarea id="description" class="materialize-textarea form-control" placeholder=""
+                        style="margin-bottom:1px;"
+                        type="text" name="description" [(ngModel)]="houseModel.house.description"></textarea>
+              <label for="description">Description</label>
+            </div>
+          </div>
+
+          <div class="row" style="margin-bottom:0;">
+            <div class="input-field col s12">
+              <textarea class="materialize-textarea form-control" style="margin-bottom:1px;"
+                        [(ngModel)]="houseModel.rawYoutube"
+                        type="text" name="youtube" placeholder="optional - separate each link with a comma"></textarea>
+              <label for="description">Embed up to 3 Youtube Videos</label>
+            </div>
+          </div>
+
+          <div *ngIf="houseModel.house.youtube.length > 0">
+            <div id="cur-vids" class="s12" style="margin-bottom: 15px;"
+                 *ngFor="let link of houseModel.formatedYoutube; let i = index; " @enterMessageState>
+              <div class="row small-marg">
+                <div class="col s12">
+                  <div class="card">
+                    <div class="videoWrapper">
+                      <!-- Copy & Pasted from YouTube -->
+                      <iframe id="youtube{{i}}" width="560" height="349"
+                              [src]="link"
+                              frameborder="0" allowfullscreen></iframe>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row" *ngIf="houseModel.editHouseMessage" @enterMessageState>
+            <div class="col s12 m8 offset-m2">
+              <p style="text-align: center;"
+                 [class.error-format]="houseModel.editHouseMessage.indexOf('ERROR:') !== -1"
+                 [class.success-format]="houseModel.editHouseMessage.indexOf('ERROR:') === -1">
+                {{houseModel.editHouseMessage}}</p>
+            </div>
+          </div>
+
+
+        </div>
+      </div>
+
+      <div class="row" style="margin-bottom:45px; margin-top:25px; margin-bottom: 55px; text-align:center;">
+        <div class="col s12">
+          <button type="submit" class="waves-effect waves-light btn green darken-2 right"><i
+            class="material-icons left">keyboard_arrow_right</i>Continue
+          </button>
+        </div>
+      </div>
+
+    </form>
+  </div>
+</div>
+

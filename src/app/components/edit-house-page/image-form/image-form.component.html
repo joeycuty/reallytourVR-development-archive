@@ -1,0 +1,77 @@
+<div class="card">
+  <div class="card-title">
+
+                    <span class="card-title grey-text text-darken-4">Image {{index+1}} <span
+                      *ngIf="!image.savingImage && !image.imageUploaded"><i style="cursor: pointer;"
+                                                                            class="material-icons right">close</i></span>
+
+                    </span>
+  </div>
+  <div class="card-image" style="position: relative;">
+
+    <img id="image" alt="no image" [src]="image.imageSource">
+    <div *ngIf="image.savingImage || image.savingTextData">
+      <div class="absolute-loader" style="background-color: white; opacity: 0.5;"></div>
+
+      <div class="preloader-wrapper small active absolute-loader">
+        <div class="spinner-layer spinner-green-only">
+          <div class="circle-clipper left">
+            <div class="circle"></div>
+          </div>
+          <div class="gap-patch">
+            <div class="circle"></div>
+          </div>
+          <div class="circle-clipper right">
+            <div class="circle"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card-stacked">
+    <div class="card-content" style="padding: 5px;">
+
+
+      <div *ngIf="!image.savingImage && !image.imageUploaded">
+        <div class="row" style="margin: 0;">
+          <div class="col s12">
+            <i (click)="fileProcessor.rotateImage(-90, image, fileType, index)" class="material-icons left"
+               style="cursor: pointer;">rotate_left</i>
+            <i (click)="fileProcessor.rotateImage(90, image, fileType, index)" class="material-icons left"
+               style="cursor: pointer;">rotate_right</i>
+          </div>
+        </div>
+      </div>
+      <div *ngIf="image.savingImage">
+        <div class="progress">
+          <div id="progress{{index}}" class="determinate" style="width:0%"></div>
+        </div>
+      </div>
+
+      <div *ngIf="image.imageUploaded">
+        <div class="input-field">
+
+          <input [(ngModel)]="image.title"  (keyup)="updateImageMetaData(image.title, 'title', index, fileType)" id="icon_prefix" type="text" class="validate">
+          <label for="icon_prefix">Title</label>
+        </div>
+
+        <div class="input-field" style="margin-top: 1px;">
+                <textarea class="materialize-textarea" style="margin-bottom:1px;"
+                          [(ngModel)]="image.description"(keyup)="updateImageMetaData(image.description, 'description', index, fileType)" name="description"></textarea>
+          <label for="icon_prefix">Desciption</label>
+        </div>
+
+
+        <div style="text-align:center; margin-top:15px;" class="switch">
+          <label style="font-size: 15px;
+                                                    font-weight: bold;" class="grey-text text-darken-2">
+
+            <input [(ngModel)]="image.imageSource" type="checkbox">
+            <span class="lever"></span> First Image
+          </label>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

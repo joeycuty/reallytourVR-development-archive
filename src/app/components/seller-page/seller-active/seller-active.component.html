@@ -1,0 +1,218 @@
+
+<div *ngIf="globals.screenSize!='medium'" class="row small-marg">
+  <div class="col s12">
+    <h4 style="font-weight: 300; margin-bottom: 3px; position: relative;">{{database.sellerData['name']}}
+      <div *ngIf="database.sellerData['position'] != ''" class="chip">
+        {{database.sellerData['position']}}
+      </div>
+    </h4>
+  </div>
+</div>
+
+<div class="row small-marg">
+  <div class="col s12">
+    <div class="card">
+      <div class="card-content " style="position: relative;">
+        <i *ngIf="sellerModel.userIsOwner" (click)="sellerModel.setSellerState('settings')"
+           style="cursor: pointer; position: absolute; top: 32px; right: 15px; color: #c5c5c5"
+           class="material-icons right">settings</i>
+        <span class="card-title">Agent Description.</span>
+        <p *ngIf="database.sellerData['description'] != ''"
+           [innerHTML]="database.sellerData['description']" ></p>
+        <p class="secondary-text-color" *ngIf="(database.sellerData['description'] == '' || database.sellerData['description'] == null ) && sellerModel.userIsOwner">You currently
+          do not have a description!  Please click the settings button on the top right to edit your profile.</p>
+        <p class="secondary-text-color" *ngIf="(database.sellerData['description'] == '' || database.sellerData['description'] == null ) && !sellerModel.userIsOwner">This seller does not have a description yet.</p>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="database.sellerHouseData
+          .length > 0" class="row small-marg">
+  <div class="col s12">
+    <h4 style="font-weight: 300; margin-bottom: 3px; position: relative;">Houses
+      <div class="chip">
+        {{database.sellerHouseData
+        .length}} on the market.
+      </div>
+    </h4>
+  </div>
+</div>
+<div *ngIf="database.sellerHouseData
+          .length > 0" class="row small-marg">
+  <div class="col s12 m6">
+    <div *ngFor=" let house of database.sellerHouseData
+              ; let i = index ">
+      <div class="card" *ngIf="i % 2 == 0">
+        <a [routerLink]="['/house' , house.link, house.key]">
+          <div class="card-image waves-effect waves-block waves-light">
+            <img [src]="house.mainStatic">
+            <span class="card-title" style="width: 100%;
+                                            font-size: 18px;
+                                            padding: 5px;
+                                            padding-right:15px;
+                                            text-align:right;
+                                            background-color: rgba(255, 255, 255, 0.76);
+                                            color: darkgreen;
+                                            font-weight: 400;">{{house.price}}</span>
+          </div>
+        </a>
+        <div class="card-content">
+                    <span (click)="setMap(i)" class="card-title activator grey-text text-darken-4">{{house.title}}<i
+                      class="material-icons right">expand_less</i></span>
+          <div class="row">
+            <div class="col s12">
+              <a href="http://maps.google.com/?q={{house.address}}"><i class="material-icons"
+                                                                       style="margin-right:5px;">location_on</i>{{house.address}}</a>
+            </div>
+          </div>
+          <div *ngIf="sellerModel.userIsOwner" class="row small-marg">
+            <div class="col s12">
+              <a materialize="dropdown" style="width: 100%; margin-bottom: 0;"
+                 [attr.data-activates]="house.key" class="waves-effect waves-dark btn-flat"><i
+                class="material-icons left">more_vert</i>Settings</a>
+              <ul id="{{house.key}}" class="dropdown-content">
+                <li>
+                  <a (click)="console.log('tets')"><span><i class="material-icons left">edit</i>Edit House</span></a>
+                </li>
+                <li><a
+                  (click)="console.log('delete')"><span><i
+                  class="material-icons left">close</i>Delete House</span></a></li>
+                <li class="divider">
+                  <a>test</a>
+                </li>
+                <li>
+                  <a (click)="console.log('')"><i class="material-icons left">chrome_reader_mode</i>Generate
+                    QR Codes / PDF</a>
+                </li>
+                <li>
+                  <a (click)="vrOpenModal(house.link, house.key)"><i class="material-icons left">code</i>Embed
+                    VR</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="card-reveal">
+          <div style="height: 150px; margin: -20px; margin-bottom: 0;" id="map{{i}}"></div>
+          <div class="row">
+            <div class="col s2">
+              <img [src]="house.mainStatic" alt="" class="" style="margin-top: 10px; width:100%;">
+            </div>
+            <div class="col s10"><span class="card-title grey-text text-darken-4">{{house.title}}<i
+              class="material-icons right" style="margin-top: 4px;">close</i></span></div>
+          </div>
+          <div class="row">
+            <div class="col s12">
+              <p>{{house.description}}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col s12 m6">
+    <div *ngFor=" let house of database.sellerHouseData
+              ; let i = index ">
+      <div class="card" *ngIf="i % 2 == 1">
+        <a [routerLink]="['/house' , house.link, house.key]">
+          <div class="card-image waves-effect waves-block waves-light">
+            <img [src]="house.mainStatic">
+            <span class="card-title" style="width: 100%;
+                                            font-size: 18px;
+                                            padding: 5px;
+                                            padding-right:15px;
+                                            text-align:right;
+                                            background-color: rgba(255, 255, 255, 0.76);
+                                            color: darkgreen;
+                                            font-weight: 400;">{{house.price}}</span>
+          </div>
+        </a>
+        <div class="card-content">
+                    <span (click)="setMap(i)" class="card-title activator grey-text text-darken-4">{{house.title}}<i
+                      class="material-icons right">expand_less</i></span>
+          <div class="row">
+            <div class="col s12">
+              <a href="http://maps.google.com/?q={{house.address}}"><i class="material-icons"
+                                                                       style="margin-right:5px;">location_on</i>{{house.address}}</a>
+            </div>
+          </div>
+          <div *ngIf="sellerModel.userIsOwner" class="row small-marg">
+            <div class="col s12">
+              <a materialize="dropdown" style="width: 100%; margin-bottom: 0;"
+                 [attr.data-activates]="house.key" class="waves-effect waves-dark btn-flat"><i
+                class="material-icons left">more_vert</i>Settings</a>
+              <ul id="{{house.key}}" class="dropdown-content">
+                <li>
+                  <a (click)="globals.editHouse(house.link, house.key)"><span><i class="material-icons left">edit</i>Edit House</span></a>
+                </li>
+                <li><a
+                  (click)="globals.deleteHouse(house.link, house.key, house.title, house.mainStatic)"><span><i
+                  class="material-icons left">close</i>Delete House</span></a></li>
+                <li class="divider">
+                  <a>test</a>
+                </li>
+                <li>
+                  <a (click)="globals.qrHouseOpenModal(house.link, house.key)"><i class="material-icons left">chrome_reader_mode</i>Generate
+                    QR Codes / PDF</a>
+                </li>
+                <li>
+                  <a (click)="vrOpenModal(house.link, house.key)"><i class="material-icons left">code</i>Embed
+                    VR</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="card-reveal">
+          <div style="height: 150px; margin: -20px; margin-bottom: 0;" id="map{{i}}"></div>
+          <div class="row">
+            <div class="col s2">
+              <img [src]="house.mainStatic" alt="" class="" style="margin-top: 10px; width:100%;">
+            </div>
+            <div class="col s10"><span class="card-title grey-text text-darken-4">{{house.title}}<i
+              class="material-icons right" style="margin-top: 4px;">close</i></span></div>
+          </div>
+          <div class="row">
+            <div class="col s12">
+              <p>{{house.description}}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div *ngIf="sellerModel.userIsOwner" class="row"
+     style="margin-top: 5px; margin-bottom:5px;">
+  <div class="col s12" style="text-align: center;">
+    <div class="card red darken-4" style="cursor: pointer;">
+      <div class="card-content ">
+        <div class="row valign-wrapper" style="margin: 0;">
+          <div class="col s12 white-text" style="font-weight: bold; font-size: 18px;">
+            You have not created any Houses. Click this card or action button at the bottom to create a new House.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div
+  *ngIf="sellerHouseLength != 9999 &&  sellerHouseLength > 0 && database.sellerHouseData
+            .length == 0 && sellerModel.userIsOwner"
+  class="row" style="margin-top: 5px; margin-bottom:5px;">
+  <div class="col s12" style="text-align: center;">
+    <div class="card">
+      <div class="card-content ">
+        <div class="row valign-wrapper" style="margin: 0;">
+          <div class="col s12" style="font-weight: bold; font-size: 18px;">
+            <i class="material-icons">home</i> Loading Houses...
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+

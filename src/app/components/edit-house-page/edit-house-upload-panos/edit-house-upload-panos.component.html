@@ -1,0 +1,51 @@
+<div class="row">
+  <div class="col s12">
+
+    <div class="card">
+      <div class="card-content">
+        <div class="file-field input-field">
+          <div class="btn default-primary-color">
+            <span>Add VR Views</span>
+            <input (change)="fileProcessor.addHouseImage($event, 'pano')" type="file" accept="image/*" multiple>
+          </div>
+          <div class="file-path-wrapper">
+            <input class="file-path validate" type="text" placeholder="Upload one or more virtual views.">
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div class="row">
+  <div class="col s12 m12 l6">
+    <div *ngFor=" let pano of houseModel.house.panos; let i = index ">
+      <div *ngIf="i % 2 == 0">
+        <app-image-form [image]="pano" [index]="i" [fileType]="'pano'"></app-image-form>
+      </div>
+    </div>
+  </div>
+  <div class="col s12 m12 l6">
+    <div *ngFor=" let pano of houseModel.house.panos; let i = index ">
+      <div *ngIf="i % 2 == 1">
+        <app-image-form [image]="pano" [index]="i" [fileType]="'pano'"></app-image-form>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+
+<div class="row" style="margin-bottom:45px; margin-top:25px; margin-bottom: 55px; text-align:center;">
+
+  <div class="col s12">
+    <a *ngIf="houseModel.house.panos.length > 0 && !houseModel.allPanosAreNotUploaded" (click)="houseModel.editHouseState = 'uploadStatics'" class="waves-effect waves-light btn green darken-2 right"><i
+      class="material-icons right">keyboard_arrow_right</i>Continue</a>
+
+    <a *ngIf="houseModel.allPanosAreNotUploaded" (click)="fileProcessor.uploadHouseImages('pano')" class="waves-effect waves-light btn default-primary-color right"><i
+      class="material-icons right">file_upload</i>Upload</a>
+
+  </div>
+
+</div>

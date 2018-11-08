@@ -1,0 +1,190 @@
+<div class="container">
+
+  <div class="row" style="margin-top: 50px;">
+    <div class="col s12 m6 offset-m3 l6 offset-l3">
+      <div *ngIf="globals.routeAfterLogin != ''">
+        <h5 style="text-align: center;">Please log in or create an account to message the agent about your house.</h5>
+        <p style="text-align: center;"><a>We will never spam you and only takes a few seconds</a></p>
+      </div>
+
+      <div class="card darken-1">
+
+        <nav class="nav-extended default-primary-color">
+
+          <div class="nav-content" style="padding: 10px;">
+            <span *ngIf="signinSwitch" @cardSlideState class="nav-title" style="display: inline-block;">Sign In</span>
+            <span *ngIf="!signinSwitch" @cardSlideState class="nav-title"
+                  style="display: inline-block;">Create Account</span>
+            <a (click)="signinSwitch = !signinSwitch; signinErrors = ''; createAccountErrors = ''"
+               class="btn-floating btn-large halfway-fab waves-effect waves-light accent-color">
+              <i *ngIf="signinSwitch" @cardSlideState class="material-icons">add</i>
+              <i *ngIf="!signinSwitch" @cardSlideState class="material-icons">chevron_left</i>
+            </a>
+          </div>
+
+        </nav>
+        <div  *ngIf="signinLoader == 'Saving Changes..'" class=" progress-color progress">
+          <div class="indeterminate indeterminate-color"></div>
+        </div>
+
+        <div class="card-content" style="overflow: hidden;">
+          <form (ngSubmit)="onSignin(g)" #g="ngForm" *ngIf="signinSwitch" @cardSlideState>
+
+            <div class="row" style="margin-bottom:0;">
+              <div class="input-field col s12" style=" margin-top: 3px">
+                <input id="email" type="email" class="form-control" ngModel name="email" required
+                       pattern="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?">
+                <label for="email">Email</label>
+              </div>
+            </div>
+            <div class="row" style="margin-bottom:0;">
+              <div class="input-field col s12">
+                <input id="password" type="password" class="form-control" ngModel name="password" required>
+                <label for="password">Password</label>
+              </div>
+            </div>
+
+            <div class="row" style="margin-bottom:5px; margin-top:25px; text-align:center;">
+              <div class="col s12" style="width:99%;">
+                <a (click)="this.autho.signInUserWithFacebook()" style="width:100%; background-color:#3A589B"
+                   class="waves-effect waves-light btn">Via
+                  Facebook</a>
+              </div>
+            </div>
+
+            <div class="row" style="margin-bottom:15px; margin-top:25px; text-align:center;">
+              <div class="col s12" style="width:99%;">
+                <button type="submit" style="width:100%;" class="waves-effect waves-light btn default-primary-color"><i
+                  class="material-icons left">send</i>Sign In
+                </button>
+              </div>
+            </div>
+            <div class="row" style=" text-align:center;">
+              <div class="col s12" style="width:99%;">
+                <a style="width:100%;" class="waves-effect waves-blue-grey btn-flat" (click)="openModal()">Forgot
+                  Password</a>
+              </div>
+            </div>
+            <div class="row" style="margin-bottom:5px;" *ngIf="signinErrors.length > 0" @enterMessageState>
+              <div class="col s12">
+                <p style="color: red; font-size:17px; text-align: center;">
+                  {{signinErrors}}</p>
+              </div>
+            </div>
+            <div class="row" style="margin-bottom:5px;" *ngIf="signinMessage.length > 0" @enterMessageState>
+              <div class="col s12">
+                <p class="secondary-text-color" style="font-size:17px;">
+                  {{signinMessage}}</p>
+              </div>
+            </div>
+          </form>
+          <form #f="ngForm" *ngIf="!signinSwitch" @cardSlideState>
+
+
+            <div class="row" style="margin-bottom:0;">
+              <div class="input-field col s12">
+                <input id="create-email" type="email" class="form-control" ngModel name="email" required
+                       pattern="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?">
+                <label for="create-email">Email</label>
+              </div>
+            </div>
+            <div class="row" style="margin-bottom:0;">
+              <div class="input-field col s12">
+                <input id="username" type="text" class="form-control " ngModel name="username" required>
+                <label for="username">Username</label>
+              </div>
+            </div>
+            <div class="row" style="margin-bottom:0;">
+              <div class="input-field col s12">
+                <input id="create-password" type="password" class="form-control" ngModel name="password" required>
+                <label for="create-password">Password</label>
+              </div>
+            </div>
+            <div class="row" style="margin-bottom:0;">
+              <div class="input-field col s12">
+                <input id="confirm-password" type="password" class="form-control" ngModel name="confirm-password"
+                       required>
+                <label for="confirm-password">Confirm Password</label>
+              </div>
+            </div>
+            <div class="row" style="margin-bottom:0;">
+              <div class="input-field col s12">
+                <div class="g-recaptcha" data-sitekey="6LdBoRMUAAAAAMOlhByHm5X_BYh7SrhFT8Wba0cU"></div>
+              </div>
+            </div>
+
+            <div class="row" style="margin-bottom:5px; margin-top:25px; text-align:center;">
+              <div class="col s12" style="width:99%;">
+                <a (click)="this.autho.signInUserWithFacebook()" style="width:100%; background-color:#3A589B"
+                   class="waves-effect waves-light btn">Via
+                  Facebook</a>
+              </div>
+            </div>
+
+            <div class="row" style="margin-bottom:5px; margin-top:25px; text-align:center;">
+              <div class="col s12" style="width:99%;">
+                <button (click)="onCreateAccount(f)" style="width:100%;"
+                        class="waves-effect waves-light btn default-primary-color">
+                  <i
+                    class="material-icons left">send</i>Create Account
+                </button>
+              </div>
+            </div>
+            <div class="row" style="margin-bottom:5px; margin-top: 15px;" *ngIf="createAccountErrors.length > 0"
+                 @enterMessageState>
+              <div class="col s12">
+                <p style="color: red; font-size:17px; text-align: center;">
+                  {{createAccountErrors}}</p>
+              </div>
+            </div>
+            <div class="row" style="margin-bottom:5px; margin-top: 15px;" *ngIf="createAccountMessage.length > 0"
+                 @enterMessageState>
+              <div class="col s12">
+                <p *ngIf="createAccountMessage.length > 0" @enterMessageState class="secondary-text-color"
+                   style="font-size:17px;  text-align: center;">
+                  {{createAccountMessage}}</p>
+              </div>
+            </div>
+
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!--Modal Structure-->
+<div id="forgot-password-modal" class="modal" materialize="modal" [materializeParams]="[{dismissible: false}]"
+     [materializeActions]="modalActions">
+  <div class="modal-content">
+    <h4>Forgot Password</h4>
+    <form (ngSubmit)="onResetPassword(h)" #h="ngForm">
+      <div class="row" style="margin-bottom:0;">
+        <div class="col s12">
+          <p style="color: #666; font-weight:bold; font-size:18px;">{{passwordErrors}}</p>
+        </div>
+      </div>
+      <div class="row" style="margin-bottom:0;">
+        <div class="col s12">
+          <p style="font-weight:bold; font-size:18px;">Please Enter your Email.</p>
+        </div>
+      </div>
+      <div class="row" style="margin-bottom:0;">
+        <div class="input-field col s12">
+          <input id="email" type="email" class="form-control" ngModel name="email" required
+                 pattern="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?">
+          <label for="email">Email</label>
+        </div>
+      </div>
+      <div class="row" style="margin-bottom:5px; margin-top:25px; text-align:center;">
+        <div class="col s12" style="width:99%;">
+          <button type="submit" style="width:100%;" class="waves-effect waves-dark btn default-primary-color"><i
+            class="material-icons left">send</i>{{updatingText}}
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <a class="waves-effect waves-dark btn-flat secondary-text-color" (click)="closeModal()">Close</a>
+  </div>
+</div>

@@ -1,0 +1,134 @@
+<!--background parallax container-->
+<div class="parallax-container" style="border-bottom: 4px solid black">
+  <div class="parallax" materialize="parallax">
+    <img src="assets/imgs/main.jpg" style="opacity: 0.55; filter: blur(2px);">
+
+    <div class="container parallax-absolute-center">
+      <!-- main title -->
+      <div class="row" style="text-align: center;">
+        <div class="col s12">
+          <div (click)="globals.toggleBackground()" class="card" style="cursor: pointer;">
+            <div class="card-content">
+              <span class="card-title"><b>ReallytourVR:</b> Visit houses from the comfort of yours.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- main title buttons -->
+      <div class="row" style="text-align: center;">
+        <!--HIDING ATM - SEE OTHER COMMENTS - CHANGED FORMAT FOR LESS BUTTONS TOO-->
+        <!--<div class="col s12 m4" style="margin-bottom: 10px">-->
+          <!--<a (click)="globals.toggleBackground()" class="waves-effect waves-light btn default-primary-color"-->
+             <!--style="width: 100%">Browse Homes</a>-->
+        <!--</div>-->
+        <div class="col s12 m7" style="margin-bottom: 10px">
+          <a (click)="globals.navigate('/login')" class="waves-effect waves-light btn default-primary-color"
+             style="width: 100%">Sell Your House</a>
+        </div>
+        <div class="col s12 m5">
+          <a class="waves-effect waves-light dark-primary-color btn" style="width: 100%">Learn More</a>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</div>
+
+<!--main container-->
+<div class="container" style="margin-top:-125px;">
+  <!-- first article -->
+  <div class="row">
+    <div class="col l6  s12">
+      <div id="mainimg3" class="z-depth-2 good-img">
+        <div id="vr-welcome-view" style="height: 350px; background-color: #eee;"></div>
+      </div>
+    </div>
+    <div class="col l6   s12">
+      <div id="maincard3" class="card">
+        <div class="card-content ">
+          <span class="card-title">Experience homes in the virtual world.</span>
+          <p>Using new web-based Virtual Reality technology, anyone can create a virtual environment of an entire house
+            quickly and easily using little more than a smartphone. Viewing houses in VR gives potental customers a new
+            viewing experience second only to real life.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- second article -->
+  <div class="row">
+    <div id="mainimg1" class="col s12  l7 push-l5 "><img materialize="materialbox"
+                                                         class="responsive-img z-depth-2 good-img"
+                                                         src="assets/imgs/main6.jpg"></div>
+    <div class="col s12 l5 pull-l7">
+      <div id="maincard1" class="card">
+
+        <div class="card-content ">
+          <span class="card-title">Visiting VR Homes</span>
+          <!--POSSIBLE UPGRADE - CHANGE TO LINK TO A FEATURED HOUSE PAGE-->
+          <p>Searching homes on ReallytourVR is as easy as searching your location and you can start touring!</p>
+          <!--HID SEARCH FIELD - MAY ADD DIFERENT SEARCH CAPABILITIES IN FUTURE SO I AM JUST COMMENTING OUT-->
+          <!--<div class="row small-marg">-->
+            <!--<div class="input-field col s12">-->
+              <!--<div style="position: relative;">-->
+                <!--<input type="text" id="autocomplete6"/>-->
+                <!--&lt;!&ndash;                                 <label for="autocomplete6">Enter location or click red icon -></label> &ndash;&gt;-->
+                <!--<i   class="material-icons" style="font-size: 28px;-->
+                                                                    <!--color: #d20000;-->
+                                                                    <!--z-index: 99;-->
+                                                                    <!--position: absolute;-->
+                                                                    <!--cursor: pointer;-->
+                                                                    <!--right: 15px;-->
+                                                                    <!--top: 0px;">place</i>-->
+                <!--<div   style="color: #d20000;-->
+                                                                    <!--z-index: 99;-->
+                                                                    <!--position: absolute;-->
+                                                                    <!--cursor: wait;-->
+                                                                    <!--right: 15px;-->
+                                                                    <!--top: 3px;">-->
+                  <!--<div class="preloader-wrapper active" style="width: 24px; height: 24px;">-->
+                    <!--<div class="spinner-layer" style="border-color: #d20000;">-->
+                      <!--<div class="circle-clipper left">-->
+                        <!--<div class="circle"></div>-->
+                      <!--</div>-->
+                      <!--<div class="gap-patch">-->
+                        <!--<div class="circle"></div>-->
+                      <!--</div>-->
+                      <!--<div class="circle-clipper right">-->
+                        <!--<div class="circle"></div>-->
+                      <!--</div>-->
+                    <!--</div>-->
+                  <!--</div>-->
+                <!--</div>-->
+              <!--</div>-->
+            <!--</div>-->
+          <!--</div>-->
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- third article -->
+  <div class="row">
+    <div id="mainimg2" class="col l6  s12"><img materialize="materialbox" class="responsive-img z-depth-2 good-img"
+                                                src="assets/imgs/main1.jpg"></div>
+    <div class="col l6   s12">
+      <div id="maincard2" class="card">
+        <div class="card-content ">
+          <span class="card-title">Adding your House</span>
+          <p> Adding a house to ReallytourVR is simple, efficent, and free for homeowners. Simply create an account and
+            we'll walk you through the rest. We have a <a (click)="globals.navigate('/guide')" style="cursor: pointer;">step-by-step
+              guide</a> for creating virtual tours using your smartphone or any other camera that is capable of
+            equirectanglar photos. For real estate agents, we offer wide ranging plans to fit your needs and support VR
+            embedding into your personal websites.</p>
+          <a (click)="globals.navigate('/login')" class="waves-effect waves-light btn green darken-2"
+             style="margin-top: 10px;">See All Plans</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--footer component-->
+<app-footer></app-footer>

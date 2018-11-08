@@ -1,0 +1,147 @@
+<div style="position: relative;">
+  <!-- progress bar for how much of the tour is completed -->
+  <div [@nextSelection]="sellerModel.setupStates[0]" style="opacity: 0; position: absolute; left: 100px; width: 100%;">
+    <div class="row small-marg">
+      <div class="col s12">
+        <h4 style="font-weight: 300; margin-bottom: 3px; position: relative;">Lets set up Your Account.
+        </h4>
+      </div>
+    </div>
+    <div class="row small-marg">
+      <div class="col s12">
+        <div class="progress green lighten-4">
+          <div class="determinate green darken-2" [style.width]="sellerModel.setupProgressString"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-content " style="position: relative;">
+        <div class="row">
+          <div class="col s12">
+            <span class="card-title">Welcome to Reallytour VR</span>
+            <p>Hello {{database.sellerData['displayName']}}! Thanks for creating an Account with us! Theres a
+              few more steps you need to take to complete setting up your account. It should only take a few
+              minutes.</p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col s12 m10 l6 offset-m1 offset-l3" style="text-align: center;">
+            <a (click)="sellerModel.setupNext()" class="waves-effect waves-light btn green darken-2"
+               style="width: 100%; margin-bottom: 10px;">Get Started.</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <div [@nextSelection]="sellerModel.setupStates[1]" style="opacity: 0; position: absolute; left: 100px; width: 100%;">
+    <div class="row small-marg">
+      <div class="col s12">
+        <h4 style="font-weight: 300; margin-bottom: 3px; position: relative;">Choose a Profile Picture.
+        </h4>
+        <h5 style="font-weight: 300; margin-bottom: 3px; position: relative;">A good picture is worth a thousand words.</h5>
+      </div>
+    </div>
+    <div class="row small-marg">
+      <div class="col s12">
+        <div class="progress green lighten-4">
+          <div class="determinate green darken-2" [style.width]="sellerModel.setupProgressString"></div>
+        </div>
+      </div>
+    </div>
+    <app-seller-profile></app-seller-profile>
+    <div class="row" style="margin-bottom:45px; margin-top:25px; text-align:center;">
+      <div class="col s12">
+        <a (click)="sellerModel.setupNext()" [class.disabled]="sellerModel.updatingProfileOptions" class="waves-effect waves-light btn green darken-2 right"><i class="material-icons right">keyboard_arrow_right</i>Continue</a>
+      </div>
+    </div>
+  </div>
+  <div [@nextSelection]="sellerModel.setupStates[2]" style="opacity: 0; position: absolute; left: 100px; width: 100%;">
+    <div class="row small-marg">
+      <div class="col s12">
+        <h4 style="font-weight: 300; margin-bottom: 3px; position: relative;"><i style="cursor: pointer;" class="material-icons" (click)="sellerModel.setupPrev()">keyboard_backspace</i>Lets Set Up Your Profile.
+        </h4>
+        <h5 style="font-weight: 300; margin-bottom: 3px; position: relative;">Fill out some basic information about yourself.</h5>
+      </div>
+    </div>
+    <div class="row small-marg">
+      <div class="col s12">
+        <div class="progress green lighten-4">
+          <div class="determinate green darken-2" [style.width]="sellerModel.setupProgressString"></div>
+        </div>
+      </div>
+    </div>
+    <app-seller-profile-text></app-seller-profile-text>
+    <div class="row" style="margin-bottom:45px; margin-top:25px; text-align:center;">
+      <div class="col s12">
+        <a (click)="sellerModel.setupNext()" class="waves-effect waves-light btn green darken-2 right" [ngClass]="{'disabled': (sellerModel.updatingProfileForm === 'Saving Changes..' ) }"><i class="material-icons right">keyboard_arrow_right</i>Continue</a>
+        <a (click)="sellerModel.setupPrev()" class="waves-effect waves-dark btn grey right" style="margin-right: 10px"><i class="material-icons left">keyboard_arrow_left</i>Back</a>
+
+      </div>
+    </div>
+  </div>
+  <div [@nextSelection]="sellerModel.setupStates[3]" style="opacity: 0; position: absolute; left: 100px; width: 100%;">
+    <div class="row small-marg">
+      <div class="col s12">
+        <h4 style="font-weight: 300; margin-bottom: 3px; position: relative;"><i style="cursor: pointer;" class="material-icons" (click)="sellerModel.setupPrev()">keyboard_backspace</i>Select a Plan.
+        </h4>
+        <h5 style="font-weight: 300; margin-bottom: 3px; position: relative;">We have a plan to fit everyone.</h5>
+      </div>
+    </div>
+    <div class="row small-marg">
+      <div class="col s12">
+        <div class="progress blue lighten-4">
+          <div class="determinate blue darken-2" [style.width]="sellerModel.setupProgressString"></div>
+        </div>
+      </div>
+    </div>
+    <app-seller-subscription></app-seller-subscription>
+    <app-payment-confirmation></app-payment-confirmation>
+    <div *ngIf="stripeModel.confirmPayment === 'selectPlan'" class="row" style="margin-bottom:45px; margin-top:25px; text-align:center;">
+      <div class="col s12">
+        <a (click)="stripeModel.setSetupLocationForSelectedPlan()" class="waves-effect waves-light btn right default-primary-color">Use the {{stripeModel.selectedPlan}} Plan</a>
+        <a (click)="sellerModel.setupPrev()" class="waves-effect waves-dark btn grey right" style="margin-right: 10px"><i class="material-icons left">keyboard_arrow_left</i>Back</a>
+
+      </div>
+    </div>
+    <div *ngIf="stripeModel.confirmPayment !== 'selectPlan'" class="row" style="margin-bottom:45px; margin-top:25px; text-align:center;">
+      <div class="col s12">
+        <a (click)="stripeModel.processChange()" class="waves-effect waves-light btn right accent-color" [ngClass]="{'disabled': stripeModel.updatingCardInfo === 'Processing Card'|| stripeModel.updatingCardInfo === 'Updating Subscription..'|| stripeModel.updatingCardInfo === 'Verifying Card Details'}">{{stripeModel.updatingCardInfo}}</a>
+        <a (click)="stripeModel.confirmPayment = 'selectPlan';" class="waves-effect waves-dark btn grey right" style="margin-right: 10px"><i class="material-icons left">keyboard_arrow_left</i>Back</a>
+
+      </div>
+    </div>
+  </div>
+  <div [@nextSelection]="sellerModel.setupStates[4]" style="opacity: 0; position: absolute; left: 100px; width: 100%;">
+    <div class="row small-marg">
+      <div class="col s12">
+        <h4 style="font-weight: 300; margin-bottom: 3px; position: relative;">All done!
+        </h4>
+      </div>
+    </div>
+    <div class="row small-marg">
+      <div class="col s12">
+        <div class="card">
+          <div class="card-content " style="position: relative;">
+            <div class="row">
+              <div class="col s12">
+                <span class="card-title">That's It!</span>
+                <p>You can start selling houses by clicking below.</p>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col s12 m6 offset-m3">
+                <a class="waves-effect waves-light btn green darken-2" style="width: 100%; margin-bottom: 10px;">Create New House</a>
+              </div>
+              <div class="col s12 m6 offset-m3">
+                <a (click)="sellerModel.setSellerState('active')" class="waves-effect waves-light btn grey lighten-2" style="width: 100%; margin-bottom: 10px;">Maybe Later</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

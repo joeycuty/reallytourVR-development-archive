@@ -1,0 +1,65 @@
+<div class="row">
+  <div class="col s12">
+    <div class="card">
+      <div class="card-content " style="position: relative; padding:0px;">
+        <ul class="tabs" materialize="tabs">
+          <li class="tab col s3"><a class="active" href="#profile-tab">Profile</a></li>
+          <li class="tab col s3"><a (click)="stripeModel.resetPaymentDetails()" href="#plans-tab">Plans</a></li>
+          <li class="tab col s3"><a (click)="stripeModel.resetPaymentDetails()" href="#payments-tab">Payments</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div id="profile-tab" class="col s12" @routeState>
+    <app-seller-profile></app-seller-profile>
+    <app-seller-profile-text *ngIf="!sellerModel.updatingProfileOptions"></app-seller-profile-text>
+  </div>
+
+  <div id="plans-tab" class="col s12" @routeState>
+    <div class="card" *ngIf="stripeModel.confirmPayment === 'selectPlan'" @routeState>
+      <div class="card-content">
+        <span class="card-title">Current Plan</span>
+        <div>
+          <h5 style="text-align: center;">You are currently using the <b>{{stripeModel.planName}} Plan</b>.</h5>
+        </div>
+      </div>
+    </div>
+    <app-seller-subscription></app-seller-subscription>
+    <app-payment-confirmation></app-payment-confirmation>
+    <div
+      *ngIf="stripeModel.confirmPayment === 'selectPlan' && stripeModel.selectedPlan !== stripeModel.planName && stripeModel.confirmChargeMessage !== ''"
+      class="row" style="margin-bottom:45px; margin-top:25px; text-align:center;" @routeState>
+      <div class="col s12">
+        <a (click)="stripeModel.setSetupLocationForSelectedPlan()"
+           class="waves-effect waves-light btn right default-primary-color">Use the {{stripeModel.selectedPlan}}
+          Plan</a>
+
+      </div>
+    </div>
+
+    <div class="row" style="margin-bottom:0;" *ngIf="stripeModel.cardProcessingMessage.length > 0" @enterMessageState>
+      <div class=" col s12 m10 offset-m1">
+        <p style="text-align: center;" [class.error-format]="stripeModel.cardProcessingMessage.indexOf('ERROR:') !== -1"
+           [class.success-format]="stripeModel.cardProcessingMessage.indexOf('ERROR:') === -1">
+          {{stripeModel.cardProcessingMessage}}</p>
+      </div>
+    </div>
+    <div *ngIf="stripeModel.confirmPayment !== 'selectPlan'" class="row"
+         style="margin-bottom:45px; margin-top:25px; text-align:center;">
+      <div class="col s12">
+        <a (click)="stripeModel.processChange()" class="waves-effect waves-light btn right accent-color"
+           [ngClass]="{'disabled': stripeModel.updatingCardInfo === 'Processing Card'|| stripeModel.updatingCardInfo === 'Updating Subscription..'|| stripeModel.updatingCardInfo === 'Verifying Card Details'}">{{stripeModel.updatingCardInfo}}</a>
+        <a (click)="stripeModel.confirmPayment = 'selectPlan';" class="waves-effect waves-dark btn grey right"
+           style="margin-right: 10px"><i class="material-icons left">keyboard_arrow_left</i>Back</a>
+
+      </div>
+    </div>
+  </div>
+
+  <div id="payments-tab" class="col s12" @routeState>
+    <app-seller-payments></app-seller-payments>
+  </div>
+</div>

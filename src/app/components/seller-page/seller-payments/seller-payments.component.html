@@ -1,0 +1,112 @@
+<div *ngIf="stripeModel.planName !== 'free'">
+  <div *ngIf="stripeModel.subscriptionObj.status == 'trialing'">
+    <div class="card">
+      <div class="card-content">
+        <span class="card-title">Free Trial</span>
+        <div>
+          <h4 style="text-align: center;">Your free trial ends on <b>{{stripeModel.trialEnd |
+            dateSecondsToReadable}}</b>.</h4>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="card" *ngIf="stripeModel.confirmPayment == 'selectPlan' ||stripeModel.confirmPayment == 'confirmCard'"
+       @routeState>
+    <div class="card-content">
+      <div class="row">
+        <div class="col s12">
+          <span class="card-title">Card on File</span>
+          <p>Click USE DIFFERENT CARD to change your card.</p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col s12">
+
+          <ul class="collection">
+            <li class="collection-item">
+              <div style="font-weight: bold;">{{stripeModel.card.brand}}<a href="#!" class="secondary-content"
+                                                                           style="color: #2196f3;">****-****-****-{{stripeModel.card.last4}}</a>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col s12 m10 l6 offset-m1 offset-l3" style="text-align: center;">
+          <a (click)="stripeModel.confirmPayment = 'updateCard'"
+             class="waves-effect waves-light btn default-primary-color"
+             style="width: 100%; margin-bottom: 10px;">Use different card</a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+  <div *ngIf="stripeModel.confirmPayment === 'updateCard'" @routeState>
+    <div class="row">
+      <div class="col s12">
+        <app-seller-update-card></app-seller-update-card>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="stripeModel.subscriptionObj.status=='past_due'" class="row" style="margin-top: 5px; margin-bottom:5px;">
+    <div class="col s12" style="text-align: center;">
+      <div class="card red">
+        <div class="card-content ">
+          <span class="card-title">Payment Error</span>
+          <div class="row valign-wrapper" style="margin: 0;">
+            <div class="col s12 white-text" style="font-weight: bold; font-size: 18px;">
+              You're renewal payment is past due! Please update your payment information to keep your
+              {{stripeModel.planName}} plan!
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-content">
+      <span class="card-title">Upcoming Payments</span>
+
+      <ul class="collection">
+        <li class="collection-item">
+          <h6>Your next payment is on <b>{{stripeModel.upcomingInvoices.date | dateSecondsToReadable}}</b>. Your card
+            ({{stripeModel.card.last4}}) will be charged <a class=" green-text"
+                                                            style="font-weight: bold; color: darkgreen">
+              {{stripeModel.upcomingInvoices.amount_due/100 | currency:'USD':true}}</a> for renewing the
+            <b>{{stripeModel.planName}} plan.</b></h6>
+        </li>
+      </ul>
+      <p style="text-indent: 1cm;">payments</p>
+      <ul class="collection with-header">
+        <li *ngFor=" let file of stripeModel.upcomingInvoices.lines.data; let i = index " class="collection-item">
+          <div><b>{{file.plan.id}} plan</b><span style="color: #999;">{{file.description}}</span> - {{file.period.start
+            | dateSecondsToReadable}}
+            <a href="#!" class="secondary-content green-text">{{file.amount/100 | currency:'USD':true}}</a></div>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div class="card" *ngIf="stripeModel.invoicesOverZero > 0">
+    <div class="card-content">
+      <span class="card-title">Previous Payments</span>
+      <ul class="collection with-header">
+        <div *ngFor=" let file of stripeModel.previousInvoices; let i = index ">
+          <li *ngIf="file.amount_due > 0" class="collection-item">
+            <div>{{file.object}} <span style="color: #999;"><span *ngIf="file.paid">Paid</span><span *ngIf="!file.paid">
+              Payment missed</span> on {{file.date | dateSecondsToReadable}}</span><a
+              href="#!" class="secondary-content green-text">{{file.amount_due/100 | currency:'USD':true}}</a></div>
+          </li>
+        </div>
+      </ul>
+    </div>
+  </div>
+</div>
+<div *ngIf="stripeModel.planName === 'free'">
+  <div class="card">
+    <div class="card-content">
+      <span class="card-title">No Payment Information</span>
+      <p style="text-align: center;">You are using the free version of ReallytourVR! To Upgrade visit the Plans Section
+        above.</p>
+    </div>
+  </div>
+</div>

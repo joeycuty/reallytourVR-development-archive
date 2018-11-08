@@ -1,0 +1,70 @@
+
+<div class="row">
+  <div class="col s12">
+
+    <div class='card-wrapper'>
+    </div>
+  </div>
+</div>
+
+<div class="card">
+  <div class="card-content">
+    <div class="row">
+      <div class="col s12">
+        <span class="card-title">Enter Your Credit Card</span>
+        <p>Please enter your credit card information to use this plan.</p>
+      </div>
+    </div>
+    <div *ngIf="stripeModel.updatingCardInfo === 'Saving Changes..'">
+      <div class="preloader-wrapper small active" style="position: absolute; top:25px; right:25px;">
+        <div class="spinner-layer" style="border-color: #388E3C;">
+          <div class="circle-clipper left">
+            <div class="circle"></div>
+          </div>
+          <div class="gap-patch">
+            <div class="circle"></div>
+          </div>
+          <div class="circle-clipper right">
+            <div class="circle"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <form id="myform" #g="ngForm">
+
+      <div class="row" style="margin-bottom:0;">
+        <div class="input-field col s12 m10 offset-m1">
+          <input type="text" id="number" name="number" [(ngModel)]="stripeModel.newCardNum" class="form-control">
+          <label for="number">Card Number</label>
+        </div>
+      </div>
+      <div class="row" style="margin-bottom:0;">
+        <div class="input-field col s12 m10 offset-m1">
+          <input type="text" id="name" name="name" [(ngModel)]="stripeModel.newCardName" class="form-control">
+          <label for="name">Full Name</label>
+        </div>
+      </div>
+      <div class="row" style="margin-bottom:0;">
+        <div class="input-field col s12 m10 offset-m1">
+          <input type="text" id="expiry" name="expiry" [(ngModel)]="stripeModel.newCardExpires" class="form-control">
+          <label for="expiry">Expiration Date</label>
+        </div>
+      </div>
+      <div class="row" style="margin-bottom:0;">
+        <div class="input-field col s12 m10 offset-m1">
+          <input type="text" id="cvc" name="cvc" [(ngModel)]="stripeModel.newCardSecureNum" class="form-control">
+          <label for="cvc">Security Code</label>
+        </div>
+      </div>
+    </form>
+
+
+    <div *ngIf="stripeModel.card.last4 !== ''" class="row" style="margin-top: 20px;">
+      <div class="col s12 m10 l6 offset-m1 offset-l3" style="text-align: center;">
+        <a (click)="stripeModel.confirmPayment = 'confirmCard'"
+           class="waves-effect waves-light btn default-primary-color"
+           style="width: 100%; margin-bottom: 10px;">Use card on File</a>
+      </div>
+    </div>
+  </div>
+</div>

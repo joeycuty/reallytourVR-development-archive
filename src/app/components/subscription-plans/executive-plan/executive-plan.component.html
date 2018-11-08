@@ -1,0 +1,30 @@
+<div class="card">
+  <p @enterMessageState *ngIf="stripeModel.planName === 'executive'" style="text-align: center; margin: 0;" class="yellow white-text darken-2">Current Plan</p>
+  <div class="card-content">
+    <div class="card-title" style="text-align: center;">Executive Tier</div>
+    <h4 style="text-align: center; margin-top:0; " class="yellow-text text-darken-2">$60.00 per month</h4>
+    <table class="striped">
+      <tbody>
+      <tr *ngFor="let perk of basicPerks">
+        <td style="text-align: center; font-size: 14px">{{perk}}</td>
+      </tr>
+      </tbody>
+    </table>
+    <div style="text-align:center; margin-top:15px;">
+      <label *ngIf="database.userDataPublic['startedTrial']=='no'" style="font-size: 15px;
+                                        font-weight: bold;" class="grey-text text-darken-2">
+        14 Day Free Trial!
+      </label>
+      <!--[(ngModel)]="plan" (ngModelChange)="statesService.selectPlan('basic')"-->
+    </div>
+    <div @cardSlideState *ngIf="stripeModel.selectedPlan !== 'executive'">
+      <a  (click)="stripeModel.selectedPlan = 'executive';"  class="waves-effect waves-light btn yellow darken-2" style="width: 100%; margin-top: 15px; margin-bottom: 5px;"><i class="material-icons left">cloud</i>Use This Plan</a>
+    </div>
+    <div @cardSlideState *ngIf="stripeModel.selectedPlan === 'executive'" style="text-align: center; margin-top:15px;">
+      <label style="font-size: 15px;
+                                        font-weight: bold;" class="yellow-text text-darken-2">
+        Currently Selected
+      </label>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,25 @@
+<div *ngIf="stripeModel.confirmChargeMessage !== ''" class="card" @enterMessageSlowState>
+  <div class="card-content">
+    <div *ngIf="stripeModel.updatingCardInfo === 'Saving Changes..'">
+      <div class="preloader-wrapper small active" style="position: absolute; top:25px; right:25px;">
+        <div class="spinner-layer" style="border-color: #388E3C;">
+          <div class="circle-clipper left">
+            <div class="circle"></div>
+          </div>
+          <div class="gap-patch">
+            <div class="circle"></div>
+          </div>
+          <div class="circle-clipper right">
+            <div class="circle"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col s12">
+        <span class="card-title">Confirm {{stripeModel.selectedPlan === 'free' ? 'Change' : 'Charge'}} - {{stripeModel.selectedPlan}}</span>
+        <p [innerHTML]="stripeModel.confirmChargeMessage"> </p>
+      </div>
+    </div>
+  </div>
+</div>

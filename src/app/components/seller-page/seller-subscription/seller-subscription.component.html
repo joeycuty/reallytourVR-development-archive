@@ -1,0 +1,35 @@
+<div *ngIf="stripeModel.confirmPayment === 'selectPlan'" @routeState>
+  <div class="row">
+    <div class="col m6 s12 l6">
+      <app-free-plan></app-free-plan>
+      <app-premium-plan></app-premium-plan>
+    </div>
+    <div class="col m6 s12 l6">
+      <app-basic-plan></app-basic-plan>
+    </div>
+    <div class="col m6 s12 l6">
+      <app-executive-plan></app-executive-plan>
+    </div>
+  </div>
+</div>
+<div *ngIf="stripeModel.confirmPayment === 'updateCard'" @routeState>
+  <div class="row">
+    <div class="col s12">
+      <app-seller-card></app-seller-card>
+    </div>
+  </div>
+</div>
+<div *ngIf="stripeModel.confirmPayment === 'noCardNeeded'" @routeState>
+  <div class="row">
+    <div class="col s12">
+      <app-seller-use-free-plan></app-seller-use-free-plan>
+    </div>
+  </div>
+</div>
+<div *ngIf="stripeModel.confirmPayment === 'confirmCard'" @routeState>
+  <div class="row">
+    <div class="col s12">
+      <app-seller-use-current-card></app-seller-use-current-card>
+    </div>
+  </div>
+</div>

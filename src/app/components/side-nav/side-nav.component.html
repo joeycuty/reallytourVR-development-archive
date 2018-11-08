@@ -1,0 +1,142 @@
+<ul *ngIf="this.autho.signedIn" id="slide-out" class="side-nav" >
+  <li>
+    <div class="userView">
+      <div class="background">
+        <img src="assets/imgs/bluematerialbg.png">
+      </div>
+      <a  (click)="globals.delayedNav('/seller/me')"><img class="circle" [src]="autho.userPhoto"></a>
+      <a  (click)="globals.delayedNav('/seller/me')"><span class="white-text name">John Doe</span></a>
+      <a  (click)="globals.delayedNav('/seller/me')"><span class="white-text email">{{autho.userEmail}}</span></a>
+    </div>
+  </li>
+  <li><a (click)="globals.delayedNav('/seller/' + autho.userId)"><i class="material-icons">cloud</i>{{autho.userEmail}}</a></li>
+  <li>
+    <div class="divider"></div>
+  </li>
+  <li><a class="subheader">Subheader</a></li>
+  <li><a (click)="autho.logout()" class="waves-effect">Sign Out</a></li>
+</ul>
+
+<div class="navbar-fixed">
+  <nav class="default-primary-color">
+    <!-- title bar -->
+    <div class="nav-wrapper">
+      <!-- link that opens slide menu -->
+      <a *ngIf="this.autho.signedIn" materialize="sideNav" [materializeParams]="[{edge:'left', closeOnClick:true, draggable: true}]"   href="#" data-activates="slide-out"
+         class="button-collapse show-on-large"><i class="material-icons"
+                                                  style="margin-left:15px; font-size:26px;">menu</i></a>
+      <!-- main title -->
+      <a (click)="globals.navigate('')" style="font-size: 22px; margin-left: 15px; cursor: pointer">ReallyTourVR</a>
+      <!-- search bar for lg screens, hiden on med and down -->
+
+      <!-- right side links -->
+      <ul id="nav-mobile" class="right" style="padding-right: 10px;">
+        <!--HIDE SEARCH ATM-->
+        <!--<li>-->
+          <!--<a (click)="smSwitchSearch = !smSwitchSearch" style=" padding: 0 4px;"><i class="material-icons"-->
+                                                                                    <!--style="font-size:22px;">search</i></a>-->
+        <!--</li>-->
+        <!--// DISPLAY DIFFERENT OPTIONS BASED ON SIGN IN STATUS-->
+
+        <li *ngIf="!this.autho.signedIn">
+        <a (click)="globals.navigate('/signin')"><i class="material-icons left" style="font-size:22px; margin-right: 0;">add_circle_outline</i><span
+          class="hide-on-med-and-down"> Sign In</span></a>
+      </li>
+        <li *ngIf="this.autho.signedIn">
+          <a (click)="this.autho.logout()" style="padding-left: 10px; padding-right: 10px;"><i class="material-icons left" style="font-size:22px; margin-right: 0;">exit_to_app</i><span
+            class="hide-on-med-and-down"> Sign Out</span></a>
+        </li>
+      </ul>
+    </div>
+
+    <!-- searchbar for mobile size -->
+    <div [hidden]="!smSwitchSearch" class=" hide-on-large-only" style="position:relative;">
+      <input type="text" href="#" id="autocomplete"
+             style="background-color: white; color:#212121; box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);"
+             placeholder="enter a location or click the red icon >" class="brand-logo center"/>
+      <i (click)="smSwitchSearch = !smSwitchSearch" class="material-icons" style="font-size: 22px;
+                                                                    color: #212121;
+                                                                    z-index: 999999;
+                                                                    position: absolute;
+                                                                    cursor: pointer;
+                                                                    right: 10px;
+                                                                    top: -7px;">close</i>
+      <!--SEARCH BAR THING THAT MAY NEED TO DIE-->
+      <!--<i *ngIf="!globals.gettingLocation" (click)="maps.getLocation()" class="material-icons" style="font-size: 28px;-->
+      <!--color: #d20000;-->
+      <!--z-index: 999999;-->
+      <!--position: absolute;-->
+      <!--cursor: pointer;-->
+      <!--right: 55px;-->
+      <!--top: -7px;">place</i>-->
+      <!--<div *ngIf="globals.gettingLocation" style="color: #d20000;-->
+      <!--z-index: 999999;-->
+      <!--position: absolute;-->
+      <!--cursor: wait;-->
+      <!--right: 55px;-->
+      <!--top: -3px;">-->
+      <!--<div class="preloader-wrapper active" style="width: 24px; height: 24px;">-->
+      <!--<div class="spinner-layer" style="border-color: #d20000;">-->
+      <!--<div class="circle-clipper left">-->
+      <!--<div class="circle"></div>-->
+      <!--</div>-->
+      <!--<div class="gap-patch">-->
+      <!--<div class="circle"></div>-->
+      <!--</div>-->
+      <!--<div class="circle-clipper right">-->
+      <!--<div class="circle"></div>-->
+      <!--</div>-->
+      <!--</div>-->
+      <!--</div>-->
+      <!--</div>-->
+    </div>
+    <!-- darkens and disables page when activated -->
+    <!--<div id="darken-background" class="darken-background" [@darkenBackground]="globals.backgroundState"-->
+    <!--(click)="globals.toggleBackground()"></div>-->
+    <!-- pull up searchbar in darkened mode -->
+    <!--<div class="row fixed-center" [@showDarkenedSearch]="globals.backgroundState">-->
+    <!--<div class="container">-->
+    <!--<div class="col s12" style="position: relative;">-->
+    <!--<input type="text" id="autocomplete2"-->
+    <!--style="text-align: center; background-color: white; color:#212121; padding-top:10px; padding-bottom: 10px; font-size:20px;"-->
+    <!--placeholder="enter a location to get started." class=""/>-->
+    <!--&lt;!&ndash;<i (click)="globals.toggleBackground()" class="material-icons" style="font-size: 22px;&ndash;&gt;-->
+    <!--&lt;!&ndash;color: #212121;&ndash;&gt;-->
+    <!--&lt;!&ndash;z-index: 999999;&ndash;&gt;-->
+    <!--&lt;!&ndash;position: absolute;&ndash;&gt;-->
+    <!--&lt;!&ndash;cursor: pointer;&ndash;&gt;-->
+    <!--&lt;!&ndash;right: 20px;&ndash;&gt;-->
+    <!--&lt;!&ndash;top: 0px;">close</i>&ndash;&gt;-->
+    <!--&lt;!&ndash;<i *ngIf="!globals.gettingLocation" (click)="maps.getLocation()" class="material-icons" style="font-size: 28px;&ndash;&gt;-->
+    <!--&lt;!&ndash;color: #d20000;&ndash;&gt;-->
+    <!--&lt;!&ndash;z-index: 999999;&ndash;&gt;-->
+    <!--&lt;!&ndash;position: absolute;&ndash;&gt;-->
+    <!--&lt;!&ndash;cursor: pointer;&ndash;&gt;-->
+    <!--&lt;!&ndash;right: 55px;&ndash;&gt;-->
+    <!--&lt;!&ndash;top: 0px;">place</i>&ndash;&gt;-->
+    <!--&lt;!&ndash;<div *ngIf="globals.gettingLocation" style="color: #d20000;&ndash;&gt;-->
+    <!--&lt;!&ndash;z-index: 999999;&ndash;&gt;-->
+    <!--&lt;!&ndash;position: absolute;&ndash;&gt;-->
+    <!--&lt;!&ndash;cursor: wait;&ndash;&gt;-->
+    <!--&lt;!&ndash;right: 55px;&ndash;&gt;-->
+    <!--&lt;!&ndash;top: 0px;">&ndash;&gt;-->
+    <!--&lt;!&ndash;<div class="preloader-wrapper active" style="width: 24px; height: 24px;">&ndash;&gt;-->
+    <!--&lt;!&ndash;<div class="spinner-layer" style="border-color: #d20000;">&ndash;&gt;-->
+    <!--&lt;!&ndash;<div class="circle-clipper left">&ndash;&gt;-->
+    <!--&lt;!&ndash;<div class="circle"></div>&ndash;&gt;-->
+    <!--&lt;!&ndash;</div>&ndash;&gt;-->
+    <!--&lt;!&ndash;<div class="gap-patch">&ndash;&gt;-->
+    <!--&lt;!&ndash;<div class="circle"></div>&ndash;&gt;-->
+    <!--&lt;!&ndash;</div>&ndash;&gt;-->
+    <!--&lt;!&ndash;<div class="circle-clipper right">&ndash;&gt;-->
+    <!--&lt;!&ndash;<div class="circle"></div>&ndash;&gt;-->
+    <!--&lt;!&ndash;</div>&ndash;&gt;-->
+    <!--&lt;!&ndash;</div>&ndash;&gt;-->
+    <!--&lt;!&ndash;</div>&ndash;&gt;-->
+    <!--</div>-->
+    <!--</div>-->
+    <!--</div>-->
+    <!--</div>-->
+  </nav>
+</div>
+

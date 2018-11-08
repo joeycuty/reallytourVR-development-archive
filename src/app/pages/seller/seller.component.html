@@ -1,0 +1,234 @@
+<!-- holds parallax stuff -->
+<div [@profileSizeStylingState]="sellerModel.moveParallax" id="paracon" class="hide-on-med-and-up"
+     style="z-index: -1; position: relative; overflow: hidden;">
+  <div *ngIf="sellerModel.sellerState != ''"><img id="profile3" [src]="database.sellerData['photoURL']" style="width: 100%">
+  </div>
+  <div *ngIf="globals.screenSize == 'small'"
+       style="position: absolute; width: 100%; height: 85px; background-color: rgba(255, 255, 255, 0.43);bottom: 0"></div>
+</div>
+<div [@profileSizeStylingState]="sellerModel.moveParallax" id="paraconmed" class="hide-on-small-only hide-on-large-only"
+     style="z-index: -1; position: relative; overflow: hidden; background-color: white;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-image: url('./assets/imgs/bluematerialbg.png');
+">
+  <div>
+    <div id="floatingparacon" class="container" style="margin-bottom: 100px;">
+      <div class="row" style="margin-top: 30px;">
+        <div class="col s8 offset-s2">
+          <div  *ngIf="sellerModel.sellerState != ''" class="card-image" style="position: relative;">
+            <img id="profile4" alt="no image" [src]="database.sellerData['photoURL']" style="width: 100%;">
+            <div
+              style="position: absolute;width: 100%;bottom: 6px;background-color: rgba(179, 174, 174, 0.65);left: 11px; "
+              class="row small-marg">
+              <div class="col s12">
+                <h5 style="font-weight: 300; margin-bottom: 3px; position: relative;">{{database.sellerData['name']}}
+                  <div *ngIf="database.sellerData['position'] != ''" class="chip">
+                    {{database.sellerData['position']}}
+                  </div>
+                </h5>
+                <div *ngIf="sellerModel.userIsOwner">
+                  <!--this should be autho-->
+                  <h6>{{stripeModel.planName}}</h6></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="parallax-profile" class="" style="position: absolute; top: 0; width: 100%;
+    height: 300px;
+    background-color: #93b9cc;
+    z-index: -3;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-image: url('assets/imgs/bluematerialbg.png');
+    background-position: center;
+    filter: blur(5px);
+    opacity: 0.2;"></div>
+
+<div [@profileSizeStylingState]="sellerModel.moveParallax" class="container" style="position: relative;">
+  <div class="row">
+    <div class="col s12 m12 l3">
+      <div  *ngIf="sellerModel.sellerState != ''" class="card hide-on-med-and-down" style="margin-top: 40px">
+        <div class="card-image">
+          <img id="profile2" alt="no image" materialize="materialbox" class="materialboxed"
+               [src]="database.sellerData['photoURL']">
+        </div>
+        <div *ngIf="sellerModel.updatingProfileOptions" @enterMessageState>
+          <div class="card-stacked">
+            <div class="card-content" style="padding: 6px;">
+              <div class="row" style="margin: 0;">
+                <div class="col s12">
+                  <i (click)="fileProcessor.rotateImage(-90, sellerModel.previewProfileImage, 'profile', null)" class="material-icons left"
+                     style="cursor: pointer; font-size: 40px;">rotate_left</i>
+                  <i (click)="fileProcessor.rotateImage(90, sellerModel.previewProfileImage, 'profile', null)" class="material-icons left"
+                     style="cursor: pointer; font-size: 40px;">rotate_right</i>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div *ngIf="sellerModel.updatingProfileImage">
+          <div class="card-stacked">
+            <div class="card-content" style="padding: 6px;">
+              <div>
+                <div class="progress light-primary-color">
+                  <div id="p-progress1" class="determinate default-primary-color" style="width:0%"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <p *ngIf="sellerModel.userIsOwner" [class.basicplan]="globals.curPlan == 'basic'"
+           [class.premiumplan]="globals.curPlan == 'premium'" [class.execplan]="globals.curPlan == 'executive'"
+           style="text-align: center; font-weight: 500; margin: 0;">{{stripeModel.planName}} plan</p>
+      </div>
+    </div>
+    <div class="col s12 m12 l9">
+      <!----------------------------------------main content for user ---------------------------------------
+      ---->
+      <div class="row hide-on-large-only" style="margin-top: 10px;"></div>
+      <div [@profileSizeStylingState]="sellerModel.moveContainer" class="row hide-on-large-only"
+           style="margin-top: -110px;"></div>
+      <div [ngSwitch]="sellerModel.sellerState">
+        <div *ngSwitchDefault @routeState>
+          <div class="row small-marg">
+            <div class="col s12">
+
+              <div class="card" style="margin-top: 100px;">
+                <div class="card-content" style="text-align: center; padding-top: 55px;">
+                  <div class="preloader-wrapper active" style="width: 200px; height: 200px;">
+                    <div class="spinner-layer" style="border-color: #2196F3;">
+                      <div class="circle-clipper left">
+                        <div class="circle"></div>
+                      </div>
+                      <div class="gap-patch">
+                        <div class="circle"></div>
+                      </div>
+                      <div class="circle-clipper right">
+                        <div class="circle"></div>
+                      </div>
+                    </div>
+                  </div>
+                  <h2 class="primary-text-color">Loading User</h2>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+        <div *ngSwitchCase="'verifyEmail'" @routeState>
+          <div class="row small-marg">
+            <div class="col s12">
+              <h4 style="font-weight: 300; margin-bottom: 3px; position: relative;">Verify Your Email.
+              </h4>
+            </div>
+          </div>
+          <div class="row small-marg">
+            <div class="col s12">
+              <div class="card">
+                <div class="card-content " style="position: relative;">
+                  <div class="row">
+                    <div class="col s12">
+                      <span class="card-title">Welcome to Reallytour VR</span>
+                      <p>We sent you an email to verify your address. Please verify your email to continue.</p>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col s12 m10 l6 offset-m1 offset-l3" style="text-align: center;">
+                      <a (click)="this.globals.reloadPage()" class="waves-effect waves-light btn green darken-2"
+                         style="width: 100%; margin-bottom: 10px;">Continue.</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- second panel of tour - set up profile info -->
+        <div *ngSwitchCase="'setup'" @routeState>
+          <app-seller-setup></app-seller-setup>
+        </div>
+        <!-- second panel of tour - set up profile info -->
+        <div *ngSwitchCase="'settings'" @routeState>
+          <div class="row small-marg">
+            <div class="col s12">
+              <h4 style="font-weight: 300; margin-bottom: 3px; position: relative;"><i style="cursor: pointer;"
+                                                                                       class="material-icons"
+                (click)="sellerModel.setSellerState('active');" >keyboard_backspace</i>
+                Settings
+
+              </h4>
+            </div>
+          </div>
+          <app-seller-settings></app-seller-settings>
+        </div>
+
+        <div *ngSwitchCase="'active'" @routeState>
+          <app-seller-active></app-seller-active>
+          <!-- <div *ngIf="globals.sub.status=='past_due' && sellerModel.userIsOwner" class="row" style="margin-top: 5px; margin-bottom:5px;">
+              <div class="col s12" style="text-align: center;">
+                  <div class="card red">
+                      <div class="card-content ">
+                          <div class="row valign-wrapper" style="margin: 0;">
+                              <div class="col s12 white-text" style="font-weight: bold; font-size: 18px;">
+                                  You're account is past due! Please update your payment information to keep your {{globals.curPlan}} plan!
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div> -->
+        </div>
+
+        <div *ngSwitchCase="'new'">
+          <div class="row small-marg">
+            <div class="col s12">
+              <h4 style="font-weight: 300; margin-bottom: 3px; position: relative;">Set Up Your Account.
+              </h4>
+            </div>
+          </div>
+          <div class="row small-marg">
+            <div class="col s12">
+              <div class="card">
+                <div class="card-content " style="position: relative;">
+                  <div class="row">
+                    <div class="col s12">
+                      <span class="card-title">Welcome to Reallytour VR</span>
+                      <p>Hello {{database.sellerData['displayName']}}! Thanks for creating an Account with us! Theres a
+                        few more steps you need to take to complete setting up your account. It should only take a few
+                        minutes.</p>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col s12 m10 l6 offset-m1 offset-l3" style="text-align: center;">
+                      <a (click)="sellerModel.setSellerState('setup'); stripeModel.resetPaymentDetails();" class="waves-effect waves-light btn green darken-2"
+                         style="width: 100%; margin-bottom: 10px;">Get Started.</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div *ngIf="sellerModel.sellerState == 'active' && sellerModel.userIsOwner" class="fixed-action-btn tooltipped" data-delay="10"
+     data-position="left" data-tooltip="Create New Home" materialize="tooltip"
+     style="bottom: 45px; right: 25px; position: fixed;" ng-reflect-materialize="tooltip"
+     data-tooltip-id="513a16a2-df2a-a543-9597-cd961531bd8f">
+  <a (click)="globals.navigate('/edithouse/new')" class="btn-floating btn-large green darken-2">
+    <i class="large material-icons white-text" style="color: black;">add</i>
+  </a>
+</div>
+

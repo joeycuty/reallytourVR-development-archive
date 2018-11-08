@@ -1,0 +1,46 @@
+<div class="row small-marg">
+  <div class="col s12">
+    <div class="z-depth-2">
+      <div id="vrview" style="width: 100%; height: 500px;"></div>
+    </div>
+  </div>
+</div>
+<div class="row small-marg">
+  <div class="col s12">
+    <h6 class="noselect">All Virtual Views</h6>
+  </div>
+</div>
+<div class="row small-marg">
+  <div class="col s12">
+    <div class="card">
+      <div class="card-content">
+
+
+        <div class="row small-marg">
+          <div class="col s12">
+
+
+            <ul class="carousel">
+              <li *ngFor=" let img of houseModel.house.panos; let i = index ">
+                <div id="linker" (click)="selectPano(img)">
+                  <img src="{{img.imageSource}}">
+                  <small>{{img.title}}</small>
+                </div>
+              </li>
+            </ul>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row" style="margin-bottom:45px; margin-top:25px; text-align:center;">
+
+  <div class="col s12">
+    <a  (click)="houseModel.editHouseState = 'publish'" class="waves-effect waves-light btn green darken-2 right"><i
+      class="material-icons right">keyboard_arrow_right</i>Continue</a>
+
+  </div>
+</div>

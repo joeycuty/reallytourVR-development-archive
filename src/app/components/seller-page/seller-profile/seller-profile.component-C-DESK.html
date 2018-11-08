@@ -1,0 +1,112 @@
+<div class="row hide-on-large-only">
+  <div class="col s8 offset-s2">
+
+
+    <div class="card">
+      <div class="card-image">
+        <img id="profile1" alt="no image" materialize="materialbox" class="materialboxed"
+             [src]="database.userDataPublic['photoURL']">
+
+      </div>
+
+
+      <div *ngIf="sellerModel.updatingProfileOptions" @enterMessageState>
+        <div class="card-stacked">
+          <div class="card-content" style="padding: 6px;">
+            <div class="row" style="margin: 0;">
+              <div class="col s12">
+                <i (click)="fileProcessor.rotateProfileImage(-90)" class="material-icons left"
+                   style="cursor: pointer; font-size: 40px;">rotate_left</i>
+                <i (click)="fileProcessor.rotateProfileImage(90)" class="material-icons left"
+                   style="cursor: pointer; font-size: 40px;">rotate_right</i>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div *ngIf="sellerModel.updatingProfileImage">
+        <div class="card-stacked">
+          <div class="card-content" style="padding: 6px;">
+            <div>
+              <div class="progress light-primary-color">
+                <div id="p-progress2" class="determinate default-primary-color" style="width:0%"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+<div class="row">
+
+  <div class="col s12">
+    <div class="card red darken-4" *ngIf="sellerModel.updatingProfileOptions"
+         @enterMessageSlowState>
+      <div class="card-content ">
+        <div class="row valign-wrapper" style="margin: 0;">
+          <div class="col s12 white-text" style="font-size: 14px;">
+            <p style="text-align: center;"><strong>Note:</strong> Uploading a new profile picture will permanently
+              delete
+              your current picture.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row" style="margin-bottom:5px; margin-top:5px; text-align:center;"  *ngIf="sellerModel.updatingProfileOptions"
+         @enterMessageSlowState>
+      <div class="col l4 offset-l4 m6 s12" style="margin-bottom: 10px">
+        <a (click)="fileProcessor.uploadProfileImage(sellerModel.previewProfileImage)" class="waves-effect waves-light btn accent-color" style="width: 100%"><i class="material-icons left">save</i>upload</a>
+      </div>
+      <div class="col l4 m6 s12">
+        <a (click)="cancelUpload()"  class="waves-effect waves-light btn red"  style="width: 100%"><i class="material-icons left">close</i>cancel</a>
+      </div>
+    </div>
+
+    <div class="card" *ngIf="sellerModel.updatingProfileOptions == false">
+      <div class="card-content">
+
+        <div class="row" style="position: relative; margin-bottom: 0px;">
+          <div class="col s12">
+            <form>
+              <div class="file-field input-field">
+                <div class="btn default-primary-color">
+                  <span>Upload Profile Image</span>
+                  <input (change)="profilePreview($event)" accept="image/*" type="file"/>
+                </div>
+
+                <div class="file-path-wrapper">
+                  <input class="file-path validate" type="text" placeholder="Select a different Profile Picture."/>
+                </div>
+
+              </div>
+            </form>
+          </div>
+          <div style="position: absolute; right: 15px; top: 15px;">
+            <div [hidden]="!openingFileExplorer">
+              <div class="preloader-wrapper small active">
+                <div class="spinner-layer" style="border-color: #388E3C;">
+                  <div class="circle-clipper left">
+                    <div class="circle"></div>
+                  </div>
+                  <div class="gap-patch">
+                    <div class="circle"></div>
+                  </div>
+                  <div class="circle-clipper right">
+                    <div class="circle"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+      </div>
+    </div>
+
+
+  </div>
+</div>

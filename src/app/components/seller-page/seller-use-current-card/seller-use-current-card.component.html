@@ -1,0 +1,47 @@
+<div class="card">
+  <div class="card-content">
+    <div *ngIf="stripeModel.updatingCardInfo === 'Saving Changes..'">
+      <div class="preloader-wrapper small active" style="position: absolute; top:25px; right:25px;">
+        <div class="spinner-layer" style="border-color: #388E3C;">
+          <div class="circle-clipper left">
+            <div class="circle"></div>
+          </div>
+          <div class="gap-patch">
+            <div class="circle"></div>
+          </div>
+          <div class="circle-clipper right">
+            <div class="circle"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+    <div class="col s12">
+      <span class="card-title">Use current card on File?</span>
+      <p>Please confirm your card information or click new card to change your card.</p>
+    </div>
+  </div>
+    <div class="row">
+      <div class="col s12">
+
+        <ul class="collection">
+          <li class="collection-item">
+            <div style="font-weight: bold;">{{stripeModel.card.brand}}<a href="#!" class="secondary-content" style="color: #2196f3;">****-****-****-{{stripeModel.card.last4}}</a></div>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="row" style="margin-bottom:5px;" *ngIf="stripeModel.cardProcessingMessage.length > 0" @enterMessageState>
+      <div class="col s12">
+        <p class="secondary-text-color" style="font-size:17px;">
+          {{stripeModel.cardProcessingMessage}}</p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col s12 m10 l6 offset-m1 offset-l3" style="text-align: center;">
+        <a (click)="stripeModel.confirmPayment = 'updateCard'" class="waves-effect waves-light btn default-primary-color"
+           style="width: 100%; margin-bottom: 10px;">Use different card</a>
+      </div>
+    </div>
+  </div>
+</div>

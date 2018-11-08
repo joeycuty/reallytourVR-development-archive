@@ -1,0 +1,165 @@
+<div class="row small-marg">
+  <div class="col s12">
+    <h4 style="font-weight: 300; margin-bottom: 3px; position: relative;"><i style="cursor: pointer;"
+                                                                             class="material-icons">edit</i>
+      {{houseModel.house.title}}
+      <div class="chip green darken-2 white-text">{{houseModel.house.price}}
+      </div>
+    </h4>
+  </div>
+</div>
+
+<div class="row small-marg">
+  <div class="col s12">
+    <div class="card">
+      <sebm-google-map [latitude]="houseModel.house.map.lat" [longitude]="houseModel.house.map.lng" [zoom]="15"
+                       [draggable]="false">
+        <sebm-google-map-marker [latitude]="houseModel.house.map.lat"
+                                [longitude]="houseModel.house.map.lng"></sebm-google-map-marker>
+      </sebm-google-map>
+      <div class="card-content">
+        <p>{{houseModel.house.address}}</p>
+      </div>
+    </div>
+
+  </div>
+</div>
+<div class="row small-marg">
+  <div class="col s12">
+
+    <div class="card">
+      <div class="card-content " style="position: relative;">
+
+        <span class="card-title">House Description. <i (click)="setStateFromMenu(2)" style="cursor: pointer;"
+                                                       class="material-icons">edit</i></span>
+        <p>{{houseModel.house.description}}</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row small-marg">
+  <div class="col s12">
+    <h5 style="font-weight: 300; margin-bottom: 3px; position: relative;">Virtual Views
+      <div class="chip">
+        {{houseModel.house.panos.length}}
+      </div>
+      <i style="cursor: pointer;" class="material-icons">edit</i>
+    </h5>
+  </div>
+</div>
+
+
+<div class="row">
+  <div class="col l4 m6 s12">
+    <div *ngFor=" let images of houseModel.house.panos; let i = index ">
+      <div class="card" *ngIf="i % 2 == 0">
+        <div class="card-image">
+          <img materialize="materialbox" [attr.data-caption]="images.description"
+               class="materialboxed imgfix" [src]="images.imageSource" alt="no image">
+        </div>
+
+        <div class="card-content" style="padding: 5px;" *ngIf="images.title.length > 0 || images.description.length > 0">
+          <p style="font-size: 17px; font-weight: bold;">{{images.title}}</p>
+          <p>{{images.description}}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col l4 m6 s12">
+    <div *ngFor=" let images of houseModel.house.panos; let i = index ">
+      <div class="card" *ngIf="i % 2 == 1">
+        <div class="card-image">
+          <img materialize="materialbox" [attr.data-caption]="images.description"
+               class="materialboxed imgfix" [src]="images.imageSource" alt="no image">
+        </div>
+
+        <div class="card-content" style="padding: 5px;" *ngIf="images.title.length > 0 || images.description.length > 0">
+          <p style="font-size: 17px; font-weight: bold;">{{images.title}}</p>
+          <p>{{images.description}}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div *ngIf="houseModel.house.youtube.length > 0">
+  <div class="row small-marg">
+    <div class="col s12">
+      <h5 style="font-weight: 300; margin-bottom: 3px; position: relative;">Videos
+        <div class="chip">
+
+          {{houseModel.house.youtube.length}}
+        </div>
+        <i style="cursor: pointer;" class="material-icons">edit</i>
+      </h5>
+    </div>
+  </div>
+  <div class="row" style="padding:15px; margin-bottom:5px;">
+    <div id="cur-vids" class="col m6 s12" style="margin-bottom: 2px;"
+         *ngFor="let link of houseModel.house.youtube; let i = index; ">
+
+      <div class="videoWrapper">
+        <!-- Copy & Pasted from YouTube -->
+        <iframe id="youtube{{i}}" width="560" height="349" [src]="link" frameborder="0" allowfullscreen></iframe>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row small-marg">
+  <div class="col s12">
+    <h5 style="font-weight: 300; margin-bottom: 3px; position: relative;">Additional Pictures
+      <div class="chip">
+        {{houseModel.house.statics.length}}
+      </div>
+      <i style="cursor: pointer;" class="material-icons">edit</i>
+    </h5>
+  </div>
+</div>
+
+
+<div class="row">
+  <div class="col l4 m6 s12">
+    <div *ngFor=" let images of houseModel.house.statics; let i = index ">
+      <div class="card" *ngIf="i % 2 == 0">
+        <div class="card-image">
+          <img materialize="materialbox" [attr.data-caption]="images.description"
+               class="materialboxed imgfix" [src]="images.imageSource" alt="no image">
+        </div>
+
+        <div class="card-content" style="padding: 5px;" *ngIf="images.title.length > 0 || images.description.length > 0">
+          <p style="font-size: 17px; font-weight: bold;">{{images.title}}</p>
+          <p>{{images.description}}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col l4 m6 s12">
+    <div *ngFor=" let images of houseModel.house.statics; let i = index ">
+      <div class="card" *ngIf="i % 2 == 1">
+        <div class="card-image">
+          <img materialize="materialbox" [attr.data-caption]="images.description"
+               class="materialboxed imgfix" [src]="images.imageSource" alt="no image">
+        </div>
+
+        <div class="card-content" style="padding: 5px;" *ngIf="images.title.length > 0 || images.description.length > 0">
+          <p style="font-size: 17px; font-weight: bold;">{{images.title}}</p>
+          <p>{{images.description}}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="row" style="margin-bottom:45px; margin-top:25px; text-align:center;">
+
+  <div class="col s12 m8 offset-m2">
+    <a (click)="houseModel.saveAndExit()" class="waves-effect waves-light btn green darken-2" style="width:100%;"><i
+      class="material-icons right">save</i>Publish House</a>
+
+  </div>
+</div>
+

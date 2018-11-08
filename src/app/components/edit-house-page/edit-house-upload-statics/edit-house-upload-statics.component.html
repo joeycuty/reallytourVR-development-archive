@@ -1,0 +1,53 @@
+<div class="row">
+  <div class="col s12">
+
+    <div class="card">
+      <div class="card-content">
+        <div class="file-field input-field">
+          <div class="btn default-primary-color">
+            <span>Add Static Images</span>
+            <input (change)="fileProcessor.addHouseImage($event, 'static')" type="file" accept="image/*" multiple>
+          </div>
+          <div class="file-path-wrapper">
+            <input class="file-path validate" type="text" placeholder="Upload one or more static images.">
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div class="row">
+  <div class="col s12 m12 l6">
+    <div *ngFor=" let static of houseModel.house.statics; let i = index ">
+      <div *ngIf="i % 2 == 0">
+        <app-image-form [image]="static" [index]="i" [fileType]="'static'"></app-image-form>
+      </div>
+    </div>
+  </div>
+  <div class="col s12 m12 l6">
+    <div *ngFor=" let static of houseModel.house.statics; let i = index ">
+      <div *ngIf="i % 2 == 1">
+        <app-image-form [image]="static" [index]="i"[fileType]="'static'"></app-image-form>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+
+
+
+<div class="row" style="margin-bottom:45px; margin-top:25px; margin-bottom: 55px; text-align:center;">
+
+  <div class="col s12">
+    <a *ngIf="houseModel.house.statics.length > 0 && !houseModel.allStaticsAreNotUploaded" (click)="houseModel.editHouseState = 'reviewPanos'" class="waves-effect waves-light btn green darken-2 right"><i
+      class="material-icons right">keyboard_arrow_right</i>Continue</a>
+
+    <a *ngIf="houseModel.allStaticsAreNotUploaded" (click)="fileProcessor.uploadHouseImages('static')" class="waves-effect waves-light btn default-primary-color right"><i
+      class="material-icons right">file_upload</i>Upload</a>
+
+  </div>
+
+</div>

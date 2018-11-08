@@ -1,0 +1,71 @@
+<div class="card">
+<div class="card-content">
+  <div [hidden]="sellerModel.updatingProfileForm != 'Saving Changes..'">
+    <div class="preloader-wrapper small active" style="position: absolute; top:25px; right:25px;">
+      <div class="spinner-layer" style="border-color: #388E3C;">
+        <div class="circle-clipper left">
+          <div class="circle"></div>
+        </div>
+        <div class="gap-patch">
+          <div class="circle"></div>
+        </div>
+        <div class="circle-clipper right">
+          <div class="circle"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <form>
+    <div class="row" style="margin-bottom:0;" *ngIf="sellerModel.profileFormMessage.length > 0" @enterMessageState>
+      <div class="col s12">
+        <p style="color: red; font-weight:bold; font-size:18px;">{{sellerModel.profileFormMessage}}</p>
+      </div>
+    </div>
+    <div class="row" style="margin-bottom:0;">
+      <div class="input-field col s12 m10 offset-m1">
+        <input type="text" id="description" class="form-control" style="margin-bottom:1px;" name="name"
+               [(ngModel)]="database.sellerData['name']" [value]="database.sellerData['name']"
+               (keyup)="updateText(database.sellerData['name'], 'name')">
+        <label for="name">Name</label>
+      </div>
+    </div>
+    <div class="row" style="margin-bottom:0;">
+      <div class="input-field col s12 m10 offset-m1">
+        <input type="text" id="position" class="form-control" style="margin-bottom:1px;" name="position"
+               [(ngModel)]="database.sellerData['position']" [value]="database.sellerData['position']"
+               (keyup)="updateText(database.sellerData['position'], 'position')">
+        <label for="position">position</label>
+      </div>
+    </div>
+    <div class="row" style="margin-bottom:0;">
+      <div class="input-field col s12 m10 offset-m1">
+        <input type="text" id="phone-number" class="form-control input-phone" style="margin-bottom:1px;"
+               name="phone" [(ngModel)]="database.sellerData['phone']"
+               [value]="database.sellerData['phone']"
+               (keyup)="updateText(database.sellerData['phone'], 'phone')">
+        <label for="phone-number">phone number</label>
+      </div>
+    </div>
+
+    <div class="row" style="margin-bottom:0;">
+      <div class="input-field col s12 m10 offset-m1">
+              <textarea class="materialize-textarea form-control" style="margin-bottom:1px;" name="description"
+                        [(ngModel)]="database.sellerData['description']"
+                        [value]="database.sellerData['description']"
+                        (keyup)="updateText(database.sellerData['description'], 'description')"></textarea>
+        <label for="description">description</label>
+      </div>
+    </div>
+
+    <div class="row" style="margin-bottom:5px; margin-top:25px; text-align:center;">
+      <div class="col s12">
+        <a class="waves-effect waves-light btn default-primary-color"><i class="material-icons left">save</i>{{sellerModel.updatingProfileForm}}</a>
+      </div>
+    </div>
+
+  </form>
+
+</div>
+
+
+</div>

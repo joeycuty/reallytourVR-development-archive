@@ -1,0 +1,204 @@
+<div class="container" style="position: relative;margin-top:40px;">
+  <div class="row">
+    <div class="col s12 m4">
+      <div class="card">
+        <div *ngIf="houseModel.house.mainStatic !== ''" class="card-image">
+          <img id="profile2" alt="no image" materialize="materialbox" class="materialboxed"
+               [src]="houseModel.house.mainStatic">
+        </div>
+      </div>
+      <div>
+        <ul class="collection" style="margin-top: 1.5 rem;">
+          <li (click)="houseModel.editHouseState = 'address'"
+              [class.active]="houseModel.editHouseState === 'address'"
+              class="collection-item">Enter Address
+          </li>
+          <li (click)="houseModel.editHouseState = 'textData'"
+              [class.active]="houseModel.editHouseState === 'textData'"
+              [class.disabled]="houseModel.house.address === ''" class="collection-item">Enter Form Data
+          </li>
+          <li (click)="houseModel.editHouseState = 'uploadPanos'"
+              [class.active]="houseModel.editHouseState === 'uploadPanos'"
+              [class.disabled]="houseModel.house.id === 'test'"
+              class="collection-item">Upload VR Views
+          </li>
+          <li (click)="houseModel.editHouseState = 'uploadStatics';"
+              [class.active]="houseModel.editHouseState === 'uploadStatics'"
+              [class.disabled]="houseModel.house.panos.length === 0 || houseModel.allPanosAreNotUploaded"
+              class="collection-item">Upload Regular Images
+          </li>
+          <li (click)="houseModel.editHouseState = 'reviewPanos';"
+              [class.active]="houseModel.editHouseState === 'reviewPanos'"
+              [class.disabled]="houseModel.house.statics.length === 0 || houseModel.allStaticsAreNotUploaded"
+              class="collection-item">Review VR Views
+          </li>
+          <li (click)="houseModel.editHouseState = 'publish';"
+              [class.active]="houseModel.editHouseState === 'publish'"
+              [class.disabled]="houseModel.house.statics.length === 0" class="collection-item">Publish House
+          </li>
+        </ul>
+        <div class="hide-on-small-only">
+          <a class="waves-effect waves-light btn green darken-2"
+             [class.disabled]="houseModel.notUploadedPanos != 0 || houseModel.notUploadedStatics != 0"
+             style="width: 100%; margin-bottom: 10px;">Save and Exit</a>
+        </div>
+      </div>
+    </div>
+    <div class="col s12 m8">
+
+      <div [ngSwitch]="houseModel.editHouseState">
+        <div *ngSwitchCase="'address'" @routeState>
+          <div class="row small-marg">
+            <div class="col s12">
+              <h4 style="font-weight: 300; margin-bottom: 3px; position: relative;">Enter the Address.
+              </h4>
+            </div>
+          </div>
+          <div class="row small-marg">
+            <div class="col s12">
+              <div class="progress blue lighten-4">
+                <div class="determinate blue darken-2" [style.width]="houseModel.editHouseProgressString"></div>
+              </div>
+            </div>
+          </div>
+          <app-edit-house-address></app-edit-house-address>
+          <div class="row small-marg hide-on-med-and-up">
+            <div class="col s12">
+              <a (click)="houseModel.editHouseSaveAndExit()"
+                 class="waves-effect waves-light btn green darken-2" style="width: 100%; margin-bottom: 10px;">Save and
+                Exit</a>
+            </div>
+          </div>
+        </div>
+        <div *ngSwitchCase="'textData'" @routeState>
+          <div class="row small-marg">
+            <div class="col s12">
+              <h4 style="font-weight: 300; margin-bottom: 3px; position: relative;">Fill Out Text and Video Data.
+              </h4>
+            </div>
+          </div>
+          <div class="row small-marg">
+            <div class="col s12">
+              <div class="progress blue lighten-4">
+                <div class="determinate blue darken-2" [style.width]="houseModel.editHouseProgressString"></div>
+              </div>
+            </div>
+          </div>
+          <app-edit-house-address-header></app-edit-house-address-header>
+          <app-edit-house-text></app-edit-house-text>
+          <div class="row small-marg hide-on-med-and-up">
+            <div class="col s12">
+              <a (click)="houseModel.editHouseSaveAndExit()"
+                 class="waves-effect waves-light btn green darken-2" style="width: 100%; margin-bottom: 10px;">Save and
+                Exit</a>
+            </div>
+          </div>
+        </div>
+        <div *ngSwitchCase="'uploadPanos'" @routeState>
+          <div class="row small-marg">
+            <div class="col s12">
+              <h4 style="font-weight: 300; margin-bottom: 3px; position: relative;">Upload Your Virtual Views.
+              </h4>
+              <h5 style="font-weight: 300; margin-bottom: 3px; position: relative;">Upload up to 15 equirectangular
+                panoramas.</h5>
+            </div>
+          </div>
+          <div class="row small-marg">
+            <div class="col s12">
+              <div class="progress blue lighten-4">
+                <div class="determinate blue darken-2" [style.width]="houseModel.editHouseProgressString"></div>
+              </div>
+            </div>
+          </div>
+          <app-edit-house-address-header></app-edit-house-address-header>
+          <app-edit-house-upload-panos></app-edit-house-upload-panos>
+          <div class="row small-marg hide-on-med-and-up">
+            <div class="col s12">
+              <a (click)="houseModel.editHouseSaveAndExit()"
+                 class="waves-effect waves-light btn green darken-2" style="width: 100%; margin-bottom: 10px;">Save and
+                Exit</a>
+            </div>
+          </div>
+        </div>
+        <div *ngSwitchCase="'uploadStatics'" @routeState>
+          <div class="row small-marg">
+            <div class="col s12">
+              <h4 style="font-weight: 300; margin-bottom: 3px; position: relative;">Upload Additional Regular Images.
+              </h4>
+              <h5 style="font-weight: 300; margin-bottom: 3px; position: relative;">You should try to keep these to a
+                minimum.</h5>
+            </div>
+          </div>
+          <div class="row small-marg">
+            <div class="col s12">
+              <div class="progress blue lighten-4">
+                <div class="determinate blue darken-2" [style.width]="houseModel.editHouseProgressString"></div>
+              </div>
+            </div>
+          </div>
+          <app-edit-house-address-header></app-edit-house-address-header>
+          <app-edit-house-upload-statics></app-edit-house-upload-statics>
+          <div class="row small-marg hide-on-med-and-up">
+            <div class="col s12">
+              <a (click)="houseModel.editHouseSaveAndExit()"
+                 class="waves-effect waves-light btn green darken-2" style="width: 100%; margin-bottom: 10px;">Save and
+                Exit</a>
+            </div>
+          </div>
+        </div>
+        <div *ngSwitchCase="'reviewPanos'" @routeState>
+          <div class="row small-marg">
+            <div class="col s12">
+              <h4 style="font-weight: 300; margin-bottom: 3px; position: relative;">Review Your Virtual views.
+              </h4>
+              <h5 style="font-weight: 300; margin-bottom: 3px; position: relative;">looking good!</h5>
+            </div>
+          </div>
+          <div class="row small-marg">
+            <div class="col s12">
+              <div class="progress blue lighten-4">
+                <div class="determinate blue darken-2" [style.width]="houseModel.editHouseProgressString"></div>
+              </div>
+            </div>
+          </div>
+          <app-edit-house-review-panos></app-edit-house-review-panos>
+          <div class="row small-marg hide-on-med-and-up">
+            <div class="col s12">
+              <a (click)="houseModel.editHouseSaveAndExit()"
+                 class="waves-effect waves-light btn green darken-2" style="width: 100%; margin-bottom: 10px;">Save and
+                Exit</a>
+            </div>
+          </div>
+        </div>
+        <div *ngSwitchCase="'publish'" @routeState>
+          <div class="row small-marg">
+            <div class="col s12">
+              <h4 style="font-weight: 300; margin-bottom: 3px; position: relative;">Review Your House.
+              </h4>
+              <h5 style="font-weight: 300; margin-bottom: 3px; position: relative;">looking good!</h5>
+            </div>
+          </div>
+          <div class="row small-marg">
+            <div class="col s12">
+              <div class="progress blue lighten-4">
+                <div class="determinate blue darken-2" [style.width]="houseModel.editHouseProgressString"></div>
+              </div>
+            </div>
+          </div>
+          <app-edit-house-publish></app-edit-house-publish>
+          <div class="row small-marg hide-on-med-and-up">
+            <div class="col s12">
+              <a (click)="houseModel.editHouseSaveAndExit()"
+                 class="waves-effect waves-light btn green darken-2" style="width: 100%; margin-bottom: 10px;">Save and
+                Exit</a>
+            </div>
+          </div>
+        </div>
+        <div *ngSwitchDefault @routeState>
+          <app-edit-house-welcome></app-edit-house-welcome>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

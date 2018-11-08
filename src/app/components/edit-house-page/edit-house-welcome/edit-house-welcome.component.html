@@ -1,0 +1,52 @@
+<div class="row small-marg">
+  <div class="col s12">
+    <div
+      *ngIf="stripeModel.planName == 'free' && sellerModel.houses.length < 2 || stripeModel.planName == 'basic' &&
+       sellerModel.houses.length < 15 || stripeModel.planName == 'premium' && sellerModel.houses.length < 30 ||
+       stripeModel.planName == 'executive' && sellerModel.houses.length < 50">
+      <div class="card">
+        <div class="card-content " style="position: relative;">
+          <div class="row">
+            <div class="col s12">
+              <span class="card-title">Start a new House Ad</span>
+              <p>Creating a new house is easy and only takes 5-10 minutes.</p>
+
+              <p><b>Please make sure you already have all your equirectangular panoramas before continuing!</b></p>
+
+              <h5 style="cursor: pointer; margin-top: 20px; text-align: center;"><a (click)="globals.navigate('/guides')"> If you need
+                help creating equirectangular panoramas, click here.</a>
+              </h5>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col s12 m10 l6 offset-m1 offset-l3" style="text-align: center;">
+              <a (click)="houseModel.editHouseState = 'address'" class="waves-effect waves-light btn green darken-2"
+                 style="width: 100%; margin-bottom: 10px;">Get Started.</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      *ngIf="stripeModel.planName == 'free' && sellerModel.houses.length > 1 || stripeModel.planName == 'basic' &&
+       sellerModel.houses.length > 15 ||  stripeModel.planName == 'premium' && sellerModel.houses.length > 29 ||
+        stripeModel.planName == 'executive' && sellerModel.houses.length > 49">
+      <div class="card">
+        <div class="card-content " style="position: relative;">
+          <div class="row">
+            <div class="col s12">
+              <span class="card-title">Oh no! youre out of houses!</span>
+              <p>Please upgrade your plan</p>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col s12 m10 l6 offset-m1 offset-l3" style="text-align: center;">
+              <a (click)="globals.navigate('/seller/me'); sellerModel.setSellerState('settings');" class="waves-effect waves-light btn green darken-2"
+                 style="width: 100%; margin-bottom: 10px;">Upgrade your plan.</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
